@@ -1,0 +1,122 @@
+body {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+h1{
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+}
+.tabulator .tabulator-header{
+    border-bottom: 3px solid #e67519;
+}
+.tabulator-row .tabulator-cell{
+    border-right: 0px;
+}
+.table.panel {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border-spacing: 0;
+}
+#main-table{
+    max-width:100vw;
+}
+.table .line{
+    display: flex;
+    margin:0.3rem auto 0.3rem auto;
+    justify-content: center; 
+    flex-wrap: wrap;
+}
+.table .col{
+    flex-flow: column;
+    display: inline-flex;
+    justify-content: center; 
+    margin:1rem;
+}
+.panel .border{
+    display: inline-block;
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(32, 32, 32);
+    font-weight: bold;
+    font-size: 1rem;
+    line-height:1.5rem;
+    padding: 4px;
+    width: 6rem;
+}
+.panel .button{
+    transition: background-color .1s;
+    font-size: 1rem;
+    font-weight: bold;
+    line-height:1.5rem;
+    border-style: solid;
+    border-width: 0px;
+    border-color: rgb(32, 32, 32);
+    display: inline-block;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-decoration: none;
+    text-transform: none;
+    white-space: normal;
+    cursor: pointer;
+    outline: 0;
+    color: #fff;
+    background: rgb(32, 32, 32);
+    border-color: rgb(32, 32, 32);
+    padding: 7px;
+}
+
+.table.panel .button.big{
+    width:100%;
+}
+
+.panel .button:hover{
+    background: rgb(66, 66, 66);
+}
+.panel .button:active{
+    background: rgb(180, 180, 180);
+}
+.panel .button:disabled{
+    background: rgb(136, 135, 135);
+}
+
+select{
+    box-sizing:content-box;
+}
+.panel input{
+    padding: 0 0 0 0.3rem;
+}
+
+.panel td{
+    padding: 1px 0 1px 0;
+    height:2.0rem
+}
+
+.tabulator-row.tabulator-row-even.tabulator-selected {
+    background-color: #A9C5EB;
+}
+.tabulator-row.tabulator-row-odd.tabulator-selected {
+    background-color: #B9CFEB;
+}
+
+.bottom.panel{
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+a:link {
+    color: blue;
+    text-decoration: none;
+}
+
+a:visited {
+    color: blue;
+}
+
+a:hover {
+    color: rgb(75, 75, 253);
+}

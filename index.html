@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="Cloudflare IP Test Tool including HTTP respond time and download speed">
+  <title>Cloudflare IP Batch Test Tool</title>
+  <link href="https://unpkg.com/tabulator-tables@4.7.2/dist/css/tabulator_site.min.css" rel="stylesheet">
+  <link href="/style.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/jquery@3.5.1/dist/jquery.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.7.2/dist/js/tabulator.min.js"></script>
+
+</head>
+
+<body>
+
+  <h1>Cloudflare IP Batch Test Tool</h1>
+
+  <div class="table panel">
+    <div class="line">
+      <div class="col">
+        <button class="button big" id="select-all" status=0>Select All</button>
+        <div class="line">
+          <input id="select-number" class="border" type="number" value="20" min="1" max="100"></input>
+          <button class="button" id="select-random"> Random </button>
+        </div>
+      </div>
+      <div class="col">
+        <button class="button big" id="test-respond" status=0>Test Respond</button>
+        <div class="line">
+          <select id="img-select" class="border">
+            <option value="0">115KB</option>
+            <option value="1" selected="selected">1.20MB</option>
+            <option value="2">10.4MB</option>
+          </select>
+          <button class="button" id="test-speed" status=0> Speed </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div id="main-table"></div>
+  <div class="panel bottom">
+    <div class="button" id="download" status=0>Data Sheet</div>
+  </div>
+  <p>First Respond of every IP may be relatively slow</p>
+  <p>You can use Shift + Drag to choose a range quickly (in some browser)</p>
+  <p>IE browser is not supported</p>
+  <p>Visit with either http or https may cause difference in results</p>
+  <p>It is not clear about the test consistency between browser and local software</p>
+  <p>Feedback via <a href="https://github.com/TulvL/cloudflare-ip-tester">Github</a> is welcome</p>
+  <br />
+  <p><a href="https://flares.cloud/">HOME</a></p>
+  <!-- Want More IP? Visit <a href=""> here </a> (only support http) -->
+  <br />
+  <br />
+  <script type="text/javascript" src="/script.js"></script>
+  <script>
+    $.get("./ip_list.csv", tablemake)
+  </script>
+</body>
+
+</html>
