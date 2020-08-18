@@ -171,11 +171,14 @@ $("#test-respond").click(function () {
             table.redraw(true)
             $("#test-respond").prop("disabled", false)
         }, pingInterval * (sn + 2))
-        if (sn > 10) {
+        // may cause performance problem
+        /*
+        if (sn > 30) {
             setTimeout(function () {
-                table.redraw(true)
-            }, pingInterval * 12)
+                table.redraw(true)  
+            }, pingInterval * 20)
         }
+        */
     }
 })
 
