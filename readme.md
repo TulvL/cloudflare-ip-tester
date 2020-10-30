@@ -25,6 +25,5 @@ Website: [https://ip.flares.cloud](https://ip.flares.cloud)
   
 ## May be released in the future
 * How to build the backend of this website
-* Much more IPv4 (Only in HTTP)  
 * IPv6 Test  
 
