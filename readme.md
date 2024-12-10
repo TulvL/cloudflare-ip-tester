@@ -5,7 +5,7 @@ This feature is very convenient for developers by using private DNS resolution o
 Although Anycast IP can automatically hit the best node, sometimes it's found that different IPs may have different connection quality.
 In order to have a more comprehensive understanding of the access quality in different IP segments, this tool is developed to test a batch of Anycast IP provided by Cloudflare and analyze both respond time and download speed of every IP.  
   
-Website: [https://ip.flares.cloud](https://ip.flares.cloud)  
+Website: [http://ip.flares.cloud](http://ip.flares.cloud)  
 　  
 
 ## Function
