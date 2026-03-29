@@ -108,6 +108,37 @@ select{
     margin-bottom: 2rem;
 }
 
+.bottom.panel .line{
+    gap: 0.3rem;
+}
+
+#list-edit-wrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    max-height: 0;
+    margin: 0 auto;
+    pointer-events: none;
+    transition: max-height .5s ease, opacity .5s ease;
+}
+
+#list-edit-wrap.show{
+    max-height: 80vh;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+#list-edit-input.border{
+    width: min(90vw, 28rem);
+    height: 50vh;
+    padding: 0.3rem;
+    margin: 0.5rem;
+    resize: none;
+    box-sizing: border-box;
+}
+
 a:link {
     color: blue;
     text-decoration: none;

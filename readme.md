@@ -15,6 +15,7 @@ Website: [http://ip.flares.cloud](http://ip.flares.cloud)
 * Show the actual loaction of every Anycast IP (according to /cdn-cgi/trace)
 * Simple statistical analysis for multiple tests in every IP  
 * Adaptation for Mobile devices (only Android tested by now)  
+* Support IPv6
 　  
   
 ## To be ascertained
@@ -25,5 +26,4 @@ Website: [http://ip.flares.cloud](http://ip.flares.cloud)
   
 ## May be released in the future
 * How to build the backend of this website
-* IPv6 Test  
 

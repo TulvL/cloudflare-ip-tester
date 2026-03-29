@@ -6,11 +6,24 @@
   <meta name="viewport" content="width=device-width">
   <meta name="description" content="Cloudflare IP Test Tool including HTTP respond time and download speed">
   <title>Cloudflare IP Batch Test Tool</title>
-  <link href="https://unpkg.com/tabulator-tables@4.7.2/dist/css/tabulator_site.min.css" rel="stylesheet">
+  <link href="/tabulator/css/tabulator_site.min.css" rel="stylesheet">
   <link href="/style.css" rel="stylesheet">
   <script type="text/javascript" src="https://unpkg.com/jquery@3.5.1/dist/jquery.js"></script>
-  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.7.2/dist/js/tabulator.min.js"></script>
+  <script type="text/javascript" src="/tabulator/js/tabulator.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175571646-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
+    gtag('config', 'UA-175571646-1');
+    var targetProtocol = "http:";
+    if (window.location.protocol != targetProtocol)
+     window.location.href = targetProtocol +
+      window.location.href.substring(window.location.protocol.length);    
+  </script>
+  <script data-ad-client="ca-pub-2746399471019267" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 <body>
@@ -44,24 +57,34 @@
 
   <div id="main-table"></div>
   <div class="panel bottom">
-    <div class="button" id="download" status=0>Data Sheet</div>
+    <div class="line">
+      <div class="button" id="download" status=0>Data Sheet</div>
+      <div class="button" id="list-edit" status=0>List Edit</div>
+    </div>
+    <div class="line" id="list-edit-wrap">
+      <textarea id="list-edit-input" class="border"></textarea>
+      <div class="line">
+        <div class="button" id="list-edit-set">Set & Refresh</div>
+        <div class="button" id="list-edit-reset">Default</div>
+        <div class="button" id="list-edit-larger">Larger</div>
+      </div>
+    </div>
   </div>
   <p>First Respond of every IP may be relatively slow</p>
   <p>You can use Shift + Drag to choose a range quickly (in some browser)</p>
-  <p>If testing too frequently, you may be blocked by the firewall of your ISP or Cloudflare</p>
+  <p>If testing too frequently, you may be blocked by Cloudflare or your ISP</p>
   <p>It is not clear about the test consistency between browser and local software</p>
-  <p>Visit with either http or https may cause difference in results</p>
-  <p>Want More IP? Visit <a href="/whole"> here </a> (only support http)</p>
+  <p>Please visit this page in HTTP or cause problem</p>
   <p>Feedback via <a href="https://github.com/TulvL/cloudflare-ip-tester">Github</a> is welcome</p>
   <p>IE browser is not supported</p>
   <br />
-  <p><a href="https://flares.cloud/">HOME</a></p>
-
+  <p><a href="http://flares.cloud/">HOME</a></p>
+  <!-- Want More IP? Visit <a href=""> here </a> (only support http) -->
   <br />
   <br />
   <script type="text/javascript" src="/script.js"></script>
   <script>
-    $.get("./ip_list.csv", tablemake)
+    loadStoredOrDefaultList()
   </script>
 </body>
 

@@ -1,14 +1,16 @@
 var urlprefix = ".ip.flares.cloud"
+var urlprefix6 = ".ip6.flares.cloud"
 var imgUrls = ["/img/s.webp", "/img/m.webp", "/img/l.webp"]
 var imgBytes = [117902, 1263924, 10914532]
 var imgi = 1
 var pingInterval = 100
-var pingUrl = "/cdn-cgi/trace"
+var pingUrl = "/ping.txt"
 var respondTimeout = 4000
 var speedTimeout = 30000
 
 var idn = 0
 var database = {}
+var listStorageKey = "ip.flares.cloud.ip_list"
 
 
 // Main Table
@@ -39,6 +41,8 @@ options = {
         },
     ],
 }
+
+page = 100
 if (typeof (page) != 'undefined' && page) {
     options.pagination = "local" // pagination may cause problem in mobile devices
     options.paginationSize = page
@@ -84,6 +88,48 @@ $("#select-random").click(function () {
 $("#download").click(function () {
     table.download("csv", "test_result.csv", { bom: true })
     // include BOM to ensure that UTF-8 characters can be correctly interpereted
+})
+
+function listEdit_0() {
+    $("#list-edit").attr("status", 0)
+    $("#list-edit-wrap").removeClass("show")
+}
+
+function listEdit_1() {
+    $("#list-edit").attr("status", 1)
+    $("#list-edit-wrap").addClass("show")
+}
+
+$("#list-edit").click(function () {
+    if ($("#list-edit").attr("status") == 0) {
+        listEdit_1()
+    } else {
+        listEdit_0()
+    }
+})
+
+$("#list-edit-set").click(function () {
+    var listData = $("#list-edit-input").val()
+    try {
+        localStorage.setItem(listStorageKey, listData)
+    } catch (e) { }
+    location.reload()
+})
+
+$("#list-edit-reset").click(function () {
+    try {
+        localStorage.removeItem(listStorageKey)
+    } catch (e) { }
+    location.reload()
+})
+
+$("#list-edit-larger").click(function () {
+    $.get("./ip_list_larger.csv", function (data) {
+        try {
+            localStorage.setItem(listStorageKey, data)
+        } catch (e) { }
+        location.reload()
+    })
 })
 
 
@@ -146,8 +192,16 @@ function tcping(addr, callback, id) {
         }
     }
     http.onload = function () {
-        var resp = http.responseText
-        var loc = resp.split("\n")[6].split("=")[1]
+        //var resp = http.responseText
+        //var loc = resp.split("\n")[6].split("=")[1]
+        const cfRay = http.getResponseHeader('cf-ray');
+        if (cfRay) {
+            const idx = cfRay.indexOf('-');
+            loc = idx !== -1 ? cfRay.slice(idx + 1) : '?';
+        }
+        else {
+            loc = "?"
+        }
         table.updateData([{ id: id, region: loc }])
     }
     http.timeout = respondTimeout
@@ -156,6 +210,13 @@ function tcping(addr, callback, id) {
 
 var positionSort = function (a, b) {
     return a.getPosition(true) - b.getPosition(true)
+}
+
+function ipToHost(ip) {
+    var text = ip.trim()
+    if (text.indexOf(":") > -1)
+        return text.replace(/[:.]/g, "-") + urlprefix6
+    return text.replace(/\./g, "-") + urlprefix
 }
 
 $("#test-respond").click(function () {
@@ -167,7 +228,7 @@ $("#test-respond").click(function () {
         selectedRows.forEach(function (row, i) {
             var one = row.getData()
             setTimeout(function () {
-                addr = "//" + one.ip.replace(/\./g, "-") + urlprefix + pingUrl + "?" + Math.random()
+                addr = "//" + ipToHost(one.ip) + pingUrl + "?" + Math.random()
                 // break cache (set the header of request or origin is not enough in Firefox)
                 tcping(addr, tcpingCallback, one.id)
             }, pingInterval * (i + sn / 100))
@@ -288,7 +349,7 @@ $("#test-speed").click(function () {
             var one = row.getData()
             sList.push({
                 id: one.id,
-                addr: "//" + one.ip.replace(/\./g, "-") + urlprefix + imgUrls[imgi] + "?" + Math.random()
+                addr: "//" + ipToHost(one.ip) + imgUrls[imgi] + "?" + Math.random()
             })
         })
         speedRecur(sList, 0) // Make sure run in turn
@@ -300,6 +361,10 @@ $("#test-speed").click(function () {
 // Entry
 function tablemake(data) {
     var initData = []
+    data = data.replace(/[\r\n]+$/, "")
+    $("#list-edit-input").val(data)
+    idn = 0
+    database = {}
     ip_list = data.split("\n")
     ip_list.forEach(function (one_ip) {
         initData.push({
@@ -316,4 +381,16 @@ function tablemake(data) {
     })
     table.replaceData(initData)
     $("#select-number").attr("max", idn)
+    select_0()
+}
+
+function loadStoredOrDefaultList() {
+    try {
+        var data = localStorage.getItem(listStorageKey)
+        if (data != null) {
+            tablemake(data)
+            return
+        }
+    } catch (e) { }
+    $.get("./ip_list.csv", tablemake)
 }
